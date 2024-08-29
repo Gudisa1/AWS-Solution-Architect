@@ -1,4 +1,5 @@
 tasks:
+  - name: ter
   - name: Install AWS CLI
     env:
       AWS_CLI_AUTO_PROMPT: "on-partial"
