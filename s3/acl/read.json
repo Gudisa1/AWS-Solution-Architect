@@ -1,0 +1,22 @@
+{
+  "Owner": {
+    "DisplayName": "gudisa",
+    "ID": "owner-canonical-id"
+  },
+  "Grant": [
+    {
+      "Grantee": {
+        "ID": "canonical-user-id",
+        "Type": "CanonicalUser"
+      },
+      "Permission": "READ"
+    },
+    {
+      "Grantee": {
+        "ID": "canonical-user-id",
+        "Type": "CanonicalUser"
+      },
+      "Permission": "READ_ACP"
+    }
+  ]
+}

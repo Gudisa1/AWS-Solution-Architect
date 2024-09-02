@@ -10,6 +10,7 @@ fi
 # Variables
 BUCKET_NAME=$1
 REGION="us-east-1"
+IAM_USER_ARN="arn:aws:iam::ACCOUNT_ID:user/USERNAME" # Replace with the actual ARN of the IAM user
 
 # Create the S3 bucket
 aws s3api create-bucket --bucket $BUCKET_NAME --region $REGION
@@ -55,5 +56,15 @@ else
     exit 1
 fi
 
+# Grant the IAM user access to the bucket using an ACL
+aws s3api put-bucket-acl --bucket $BUCKET_NAME --grant-full-control "$IAM_USER_ARN"
+
+# Check if the ACL was successfully applied
+if [ $? -eq 0 ]; then
+    echo "ACL applied successfully for bucket $BUCKET_NAME to grant access to $IAM_USER_ARN."
+else
+    echo "Error: Failed to apply ACL for bucket $BUCKET_NAME."
+    exit 1
+fi
 
 echo "Script execution completed."
