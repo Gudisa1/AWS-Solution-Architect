@@ -1,0 +1,110 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: CloudFormation template to create a VPC, subnets, and related resources with names prefixed by "gudisa"
+
+Parameters:
+  VpcCidr:
+    Description: "The CIDR block for the VPC"
+    Type: String
+    Default: "10.0.0.0/16"
+
+  PublicSubnetCidr:
+    Description: "The CIDR block for the public subnet"
+    Type: String
+    Default: "10.0.1.0/24"
+
+  PrivateSubnetCidr:
+    Description: "The CIDR block for the private subnet"
+    Type: String
+    Default: "10.0.2.0/24"
+
+Resources:
+  # VPC
+  GudisaVpc:
+    Type: "AWS::EC2::VPC"
+    Properties:
+      CidrBlock: !Ref VpcCidr
+      EnableDnsSupport: true
+      EnableDnsHostnames: true
+      Tags:
+        - Key: Name
+          Value: "gudisa-vpc"
+
+  # Internet Gateway
+  GudisaInternetGateway:
+    Type: "AWS::EC2::InternetGateway"
+    Properties:
+      Tags:
+        - Key: Name
+          Value: "gudisa-igw"
+
+  # Attach Internet Gateway to the VPC
+  GudisaVpcGatewayAttachment:
+    Type: "AWS::EC2::VPCGatewayAttachment"
+    Properties:
+      VpcId: !Ref GudisaVpc
+      InternetGatewayId: !Ref GudisaInternetGateway
+
+  # Public Subnet
+  GudisaPublicSubnet:
+    Type: "AWS::EC2::Subnet"
+    Properties:
+      VpcId: !Ref GudisaVpc
+      CidrBlock: !Ref PublicSubnetCidr
+      MapPublicIpOnLaunch: true
+      Tags:
+        - Key: Name
+          Value: "gudisa-public-subnet"
+
+  # Private Subnet
+  GudisaPrivateSubnet:
+    Type: "AWS::EC2::Subnet"
+    Properties:
+      VpcId: !Ref GudisaVpc
+      CidrBlock: !Ref PrivateSubnetCidr
+      Tags:
+        - Key: Name
+          Value: "gudisa-private-subnet"
+
+  # Route Table for Public Subnet
+  GudisaPublicRouteTable:
+    Type: "AWS::EC2::RouteTable"
+    Properties:
+      VpcId: !Ref GudisaVpc
+      Tags:
+        - Key: Name
+          Value: "gudisa-public-route-table"
+
+  # Route for Internet access in the public subnet
+  GudisaPublicRoute:
+    Type: "AWS::EC2::Route"
+    DependsOn: GudisaVpcGatewayAttachment
+    Properties:
+      RouteTableId: !Ref GudisaPublicRouteTable
+      DestinationCidrBlock: "0.0.0.0/0"
+      GatewayId: !Ref GudisaInternetGateway
+
+  # Associate the Public Subnet with the Public Route Table
+  GudisaPublicSubnetRouteTableAssociation:
+    Type: "AWS::EC2::SubnetRouteTableAssociation"
+    Properties:
+      SubnetId: !Ref GudisaPublicSubnet
+      RouteTableId: !Ref GudisaPublicRouteTable
+
+Outputs:
+  VpcId:
+    Description: "The ID of the VPC"
+    Value: !Ref GudisaVpc
+    Export:
+      Name: VpcId
+
+  PublicSubnetId:
+    Description: "The ID of the Public Subnet"
+    Value: !Ref GudisaPublicSubnet
+    Export:
+      Name: PublicSubnetId
+
+  PrivateSubnetId:
+    Description: "The ID of the Private Subnet"
+    Value: !Ref GudisaPrivateSubnet
+    Export:
+      Name: PrivateSubnetId
