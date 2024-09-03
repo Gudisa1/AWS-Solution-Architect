@@ -1,7 +1,6 @@
----
 # AWS VPC Setup: CLI, Terraform, and CloudFormation
 
-This repository provides scripts and templates for setting up an AWS Virtual Private Cloud (VPC) using three different methods: AWS CLI, Terraform, and CloudFormation. Each method creates a VPC with public and private subnets, an Internet Gateway, and related networking components. 
+This repository provides scripts and templates for setting up an AWS Virtual Private Cloud (VPC) using three different methods: AWS CLI, Terraform, and CloudFormation. Each method creates a VPC with public and private subnets, an Internet Gateway, and related networking components.
 
 ## Overview
 
