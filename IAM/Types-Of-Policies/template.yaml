@@ -1,0 +1,57 @@
+Resources:
+  # Define the Customer Managed Policy
+  S3GudisaManagedPolicy:
+    Type: AWS::IAM::ManagedPolicy
+    Properties:
+      ManagedPolicyName: "s3gudisa-managed-policy"
+      Description: "A policy for managing S3 access"
+      PolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Effect: "Allow"
+            Action:
+              - "s3:ListBucket"
+              - "s3:GetObject"
+              - "s3:PutObject"
+            Resource:
+              - "arn:aws:s3:::your-bucket-name"
+              - "arn:aws:s3:::your-bucket-name/*"
+
+  # Define the IAM User
+  gudisa:
+    Type: AWS::IAM::User
+    Properties:
+      UserName: "gudisa"
+      ManagedPolicyArns:
+        - "arn:aws:iam::aws:policy/AdministratorAccess"
+        - "arn:aws:iam::014498664924:policy/s3gudisa"
+        - !Ref S3GudisaManagedPolicy  # Reference to the customer-managed policy
+      Policies:
+        - PolicyName: "gudisa-inline-policy"
+          PolicyDocument:
+            Version: "2012-10-17"
+            Statement:
+              - Effect: "Allow"
+                Action:
+                  - "s3:*"
+                Resource:
+                  - "*"
+
+  # Define the IAM Role
+  IAMRole:
+    Type: AWS::IAM::Role
+    Properties:
+      RoleName: "MyCustomEC2Role" # Specify a name for the role
+      AssumeRolePolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Effect: "Allow"
+            Principal:
+              Service: "ec2.amazonaws.com"
+            Action: "sts:AssumeRole"
+      Description: "Allows EC2 instances to assume the role"
+      ManagedPolicyArns:
+        - "arn:aws:iam::aws:policy/AmazonS3FullAccess"
+      MaxSessionDuration: 3600
+      Path: "/"
+      PermissionsBoundary: "arn:aws:iam::014498664924:policy/s3gudisa"
