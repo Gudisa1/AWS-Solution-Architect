@@ -1,4 +1,4 @@
-```markdown
+````markdown
 # Bash Scripts for AWS S3 Operations
 
 This repository contains various Bash scripts for managing AWS S3 buckets and objects. These scripts perform operations such as creating and deleting S3 buckets, managing S3 objects, and listing buckets and objects.
@@ -14,6 +14,7 @@ Creates a new S3 bucket.
 ```bash
 ./create-bucket.sh <bucket-name>
 ```
+````
 
 #### Arguments
 
@@ -120,5 +121,7 @@ Synchronizes files in a local directory with an S3 bucket.
 ## Contributing
 
 Feel free to open issues or pull requests for improvements.
+
+```
 
 ```
