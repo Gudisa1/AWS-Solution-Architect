@@ -1,1 +1,2 @@
-# AWS-Solution-Architect
+# AWS-Solution-Architect Exam Notes & Projects
+
