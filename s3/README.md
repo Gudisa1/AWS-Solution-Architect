@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 # AWS S3 (Simple Storage Service)
+=======
+# AWS S3 (Simple Storage Service) 
+>>>>>>> c7f1b44dea11093ca2dc1f3ee184291924c408be
 
 ## Overview
 
