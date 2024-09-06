@@ -1,4 +1,4 @@
-# AWS S3 (Simple Storage Service) Project
+# AWS S3 (Simple Storage Service)
 
 ## Overview
 
@@ -1585,7 +1585,6 @@ When accessing a bucket with Requester Pays enabled, you need to include the `x-
 
 These features enhance the flexibility, cost management, and functionality of Amazon S3, catering to diverse needs and use cases.
 
-
 Sure, here's a clear and detailed explanation for each S3 feature using AWS CLI commands:
 
 ---
@@ -1595,6 +1594,7 @@ Sure, here's a clear and detailed explanation for each S3 feature using AWS CLI 
 **Purpose**: Amazon S3 Inventory provides a list of objects and their metadata within a bucket, which is useful for managing and auditing your S3 data.
 
 **Setup with AWS CLI**:
+
 ```bash
 aws s3api put-bucket-inventory-configuration \
     --bucket your-bucket-name \
@@ -1620,6 +1620,7 @@ aws s3api put-bucket-inventory-configuration \
         ]
     }'
 ```
+
 - **`--bucket`**: The bucket you want to inventory.
 - **`--id`**: A unique identifier for the inventory configuration.
 - **`--inventory-configuration`**: Defines where the inventory report will be saved and what details it will include (e.g., object size, last modified date).
@@ -1631,6 +1632,7 @@ aws s3api put-bucket-inventory-configuration \
 **Purpose**: S3 Select allows you to retrieve specific data from an object using SQL-like queries, reducing the amount of data retrieved and improving performance.
 
 **Usage with AWS CLI**:
+
 ```bash
 aws s3api select-object-content \
     --bucket your-bucket-name \
@@ -1641,6 +1643,7 @@ aws s3api select-object-content \
     --output-serialization '{"CSV": {}}' \
     your-output-file
 ```
+
 - **`--bucket`**: The bucket containing the object.
 - **`--key`**: The key of the object to query.
 - **`--expression`**: The SQL-like query to execute.
@@ -1654,6 +1657,7 @@ aws s3api select-object-content \
 **Purpose**: S3 Event Notifications let you automatically notify services like Lambda, SQS, or SNS about events such as object creation or deletion.
 
 **Setup with AWS CLI**:
+
 ```bash
 aws s3api put-bucket-notification-configuration \
     --bucket your-bucket-name \
@@ -1678,6 +1682,7 @@ aws s3api put-bucket-notification-configuration \
         ]
     }'
 ```
+
 - **`--bucket`**: The bucket to configure notifications for.
 - **`--notification-configuration`**: Defines which events will trigger notifications and which services will receive them.
 
@@ -1688,6 +1693,7 @@ aws s3api put-bucket-notification-configuration \
 **Purpose**: S3 Storage Class Analysis helps you understand how often your data is accessed and provides recommendations for transitioning data to more cost-effective storage classes.
 
 **Setup with AWS CLI**:
+
 ```bash
 aws s3api put-bucket-storage-class-analysis \
     --bucket your-bucket-name \
@@ -1701,6 +1707,7 @@ aws s3api put-bucket-storage-class-analysis \
         }
     }'
 ```
+
 - **`--bucket`**: The bucket to analyze.
 - **`--storage-class-analysis`**: Configuration for exporting the analysis results.
 
@@ -1711,6 +1718,7 @@ aws s3api put-bucket-storage-class-analysis \
 **Purpose**: S3 Storage Lens provides detailed metrics and insights on storage usage, including trends and patterns, to help you optimize costs and manage data more effectively.
 
 **Setup with AWS CLI**:
+
 ```bash
 aws s3control put-storage-lens-configuration \
     --account-id your-account-id \
@@ -1727,6 +1735,7 @@ aws s3control put-storage-lens-configuration \
         }
     }'
 ```
+
 - **`--account-id`**: Your AWS account ID.
 - **`--configuration`**: Defines the metrics and export options for the Storage Lens report.
 
@@ -1737,6 +1746,7 @@ aws s3control put-storage-lens-configuration \
 **Purpose**: S3 Static Website Hosting allows you to host a static website directly from an S3 bucket, serving HTML, CSS, and JavaScript files.
 
 **Setup with AWS CLI**:
+
 ```bash
 aws s3api put-bucket-website \
     --bucket your-bucket-name \
@@ -1749,6 +1759,7 @@ aws s3api put-bucket-website \
         }
     }'
 ```
+
 - **`--bucket`**: The bucket you want to use for hosting.
 - **`--website-configuration`**: Configuration including the index and error documents.
 
@@ -1759,6 +1770,7 @@ aws s3api put-bucket-website \
 **Purpose**: Multipart Upload allows you to upload large objects in smaller parts, making it easier to manage and resume uploads.
 
 **Setup with AWS CLI**:
+
 1. **Initiate Multipart Upload**:
    ```bash
    aws s3api create-multipart-upload \
@@ -1784,6 +1796,7 @@ aws s3api put-bucket-website \
    ```
 
 **Key Features**:
+
 - **Initiate**: Start the upload process.
 - **Upload Parts**: Upload parts of the file.
 - **Complete**: Finalize the upload.
@@ -1795,6 +1808,7 @@ aws s3api put-bucket-website \
 **Purpose**: Byte-Range Fetching allows you to download specific byte ranges of an object, useful for partial retrievals.
 
 **Usage with AWS CLI**:
+
 ```bash
 aws s3api get-object \
     --bucket your-bucket-name \
@@ -1802,6 +1816,7 @@ aws s3api get-object \
     --range "bytes=0-1023" \
     your-output-file
 ```
+
 - **`--bucket`**: The bucket containing the object.
 - **`--key`**: The key of the object.
 - **`--range`**: The byte range you want to fetch.
@@ -1813,6 +1828,7 @@ aws s3api get-object \
 **Purpose**: S3 Interoperability ensures compatibility with other cloud providers and third-party tools that support the S3 API.
 
 **Key Features**:
+
 - Enables integration with non-AWS services.
 - Ensures standard S3 operations are compatible across different platforms.
 
