@@ -1,4 +1,4 @@
-# AWS S3 (Simple Storage Service) Project
+# AWS S3 (Simple Storage Service) 
 
 ## Overview
 
